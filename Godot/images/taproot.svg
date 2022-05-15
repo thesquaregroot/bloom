@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128"
+   height="256"
+   viewBox="0 0 33.866666 67.733335"
+   version="1.1"
+   id="svg8253"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="taproot.svg"
+   inkscape:export-filename="/home/groot/Projects/bloom/Godot/images/taproot.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8255"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:snap-page="true"
+     inkscape:snap-midpoints="false"
+     inkscape:zoom="1.91"
+     inkscape:cx="38.219895"
+     inkscape:cy="131.93717"
+     inkscape:window-width="1920"
+     inkscape:window-height="935"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs8250" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#fff6d5;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 12.170833,0 -0.597197,12.587261 c 0,0 3.118408,16.758992 2.290258,20.259144 -0.828151,3.500154 -2.348319,8.226611 -2.348319,8.226611 0,0 -0.568263,6.125372 -0.121082,9.019937 0.44718,2.894566 3.365723,3.331364 2.259457,7.147497 -1.106267,3.816133 0.726776,10.492882 0.726776,10.492882 0,0 0.730665,-5.828424 0.889085,-7.913645 0.158419,-2.085218 2.890659,-1.848421 1.584941,-7.880577 -1.305718,-6.032159 -3.152051,-2.678872 -0.730868,-8.908394 2.421183,-6.229522 5.042333,2.585963 4.009125,-8.218074 C 19.099802,24.008607 19.11749,24.42753 19.396376,22.562148 19.675261,20.696766 20.708983,14.517391 19.067056,9.6421144 17.425129,4.766838 20.108333,0 20.108333,0 Z"
+       id="path8395"
+       sodipodi:nodetypes="ccscsscsssssscc" />
+  </g>
+</svg>
