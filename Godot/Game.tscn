@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://images/sun.png" type="Texture" id=1]
 [ext_resource path="res://Leaf.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/stem.svg" type="Texture" id=3]
 [ext_resource path="res://Taproot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Plant.gd" type="Script" id=5]
+[ext_resource path="res://Sun.gd" type="Script" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 0, 0, 1024, 0, 1024, 800, 0, 800 )
@@ -34,6 +35,7 @@ occluder = SubResource( 1 )
 
 [node name="Sun" type="Node2D" parent="Background" groups=["Sun"]]
 position = Vector2( 164, 170 )
+script = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Background/Sun"]
 texture = ExtResource( 1 )
