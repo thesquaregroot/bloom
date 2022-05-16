@@ -32,9 +32,9 @@
      inkscape:cx="138.44553"
      inkscape:cy="148.31176"
      inkscape:window-width="1920"
-     inkscape:window-height="935"
-     inkscape:window-x="0"
-     inkscape:window-y="32"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -44,13 +44,13 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#008000;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#008000;stroke:#000000;stroke-width:1.32291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:normal"
        d="m 64.072464,42.246773 c 0,0 -9.711122,12.407915 -21.797264,10.937932 -5.500611,-0.669014 -12.654462,-2.15615 -26.82944,-10.840732 -5.6733636,-3.4759 -14.0255167,-2.82508 -14.0255167,-2.82508 0,0 4.8458135,-6.769286 11.7507867,-13.653849 3.151491,-3.142176 14.252124,-11.695336 26.800386,-9.355477 19.70195,3.673798 21.966223,15.798127 24.101048,25.737206 z"
        id="path1843"
        sodipodi:nodetypes="csscssc" />
     <path
        style="fill:none;stroke:#009b00;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1.4202433,39.518894 C 28.188396,23.543264 45.776662,29.279335 64.072462,42.246772"
+       d="M 1.4202433,39.518893 C 28.188396,23.543263 45.776662,29.279335 64.072462,42.246772"
        id="path3737"
        sodipodi:nodetypes="cc" />
     <path

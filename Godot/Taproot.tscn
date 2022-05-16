@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://ClickArea.gd" type="Script" id=1]
+[ext_resource path="res://Taproot.gd" type="Script" id=2]
+[ext_resource path="res://images/taproot.png" type="Texture" id=3]
+[ext_resource path="res://images/circle.png" type="Texture" id=4]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform bool enabled = false;
+uniform bool mouseOver = false;
+uniform vec4 effectColor : hint_color = vec4(0.0, 1.0, 0.0, 1.0);
+
+void fragment() {
+	vec4 base = texture(TEXTURE, UV);
+	vec4 color = base;
+	if (enabled) {
+		// calculate effect color
+		float timeFactor = (clamp(fract(TIME), 0.0, 0.9) + 0.1);
+		float targetX = 0.5 - (0.5 - UV.x) / (0.5 / timeFactor);
+		vec2 targetUv = vec2(targetX, UV.y);
+		vec4 effectArea = effectColor * texture(TEXTURE, targetUv).a;
+		effectArea.a = (1.0 - abs(0.5 - UV.x)) * (effectArea.a);
+
+		color = vec4(mix(base.rgb, effectArea.rgb, (1.0 - base.a)), base.a + effectArea.a);
+	}
+	if (mouseOver) {
+		color.a = 1.0;
+	}
+	COLOR = color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/enabled = false
+shader_param/mouseOver = false
+shader_param/effectColor = Color( 0.796078, 1, 0.796078, 1 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type particles;
+
+uniform float size = 64.0;
+uniform float scale = 0.1;
+uniform vec4 color : hint_color = vec4(0.0, 1.0, 0.0, 1.0);
+
+float rand_from_seed(in uint seed) {
+  int k;
+  int s = int(seed);
+  if (s == 0)
+    s = 305420679;
+  k = s / 127773;
+  s = 16807 * (s - k * 127773) - 2836 * k;
+  if (s < 0)
+    s += 2147483647;
+  seed = uint(s);
+  return float(seed % uint(65536)) / 65535.0;
+}
+
+uint hash(uint x) {
+  x = ((x >> uint(16)) ^ x) * uint(73244475);
+  x = ((x >> uint(16)) ^ x) * uint(73244475);
+  x = (x >> uint(16)) ^ x;
+  return x;
+}
+
+void vertex() {
+	if (RESTART) {
+		uint alt_seed1 = hash(NUMBER + uint(1) + RANDOM_SEED);
+		uint alt_seed2 = hash(NUMBER + uint(27) + RANDOM_SEED);
+		uint alt_seed3 = hash(NUMBER + uint(43) + RANDOM_SEED);
+		uint alt_seed4 = hash(NUMBER + uint(111) + RANDOM_SEED);
+		vec2 position = vec2(
+							rand_from_seed(alt_seed2) * 2.0 - 1.0,
+							rand_from_seed(alt_seed3) * 2.0 - 1.0
+							);
+		TRANSFORM[3].xy = size * position;
+		TRANSFORM[0].x = scale;
+		TRANSFORM[1].y = scale;
+		TRANSFORM[2].z = scale;
+		COLOR = color;
+		CUSTOM.x = TIME;
+	} else {
+		float particleLifetime = TIME - CUSTOM.x;
+		VELOCITY.x = -1.0 * TRANSFORM[3].x;
+		VELOCITY.y = -20.0 * particleLifetime * (size - TRANSFORM[3].x) / size;
+		float newScale = scale * (particleLifetime / 2.0 + 0.5);
+		TRANSFORM[0].x = newScale;
+		TRANSFORM[1].y = newScale;
+		TRANSFORM[2].z = newScale;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/size = 64.0
+shader_param/scale = 0.1
+shader_param/color = Color( 0.796078, 1, 0.796078, 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 15, 64 )
+
+[node name="Taproot" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="TaprootSprite" type="Sprite" parent="."]
+material = SubResource( 6 )
+position = Vector2( 0, 64 )
+scale = Vector2( 0.25, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="AbsorbtionParticles" type="Particles2D" parent="."]
+position = Vector2( 0, 108 )
+z_index = -1
+emitting = false
+amount = 32
+lifetime = 2.0
+process_material = SubResource( 8 )
+texture = ExtResource( 4 )
+
+[node name="ClickArea" type="Area2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2( 0, 64 )
+shape = SubResource( 4 )

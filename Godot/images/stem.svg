@@ -28,12 +28,12 @@
      showgrid="false"
      units="px"
      inkscape:zoom="1.45"
-     inkscape:cx="52.413793"
-     inkscape:cy="64.827586"
+     inkscape:cx="117.24138"
+     inkscape:cy="231.03448"
      inkscape:window-width="1920"
-     inkscape:window-height="935"
-     inkscape:window-x="0"
-     inkscape:window-y="32"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -43,7 +43,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#008000;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#008000;stroke:#000000;stroke-width:1.32291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 20.108333,0 c -4.45209,28.966771 -1.290943,56.462049 -0.639327,70.859278 0.705621,15.59046 3.354015,48.456212 0.639327,64.607392 h -7.9375 C 14.885521,119.31549 12.145967,85.74437 11.440346,70.15382 10.78873,55.756511 7.7187429,28.966778 12.170833,0 Z"
        id="path6634-6"
        sodipodi:nodetypes="csccscc" />

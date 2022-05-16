@@ -12,7 +12,7 @@ config_version=4
 
 config/name="Bloom"
 config/description="A 2D plant growing game made in Godot."
-config/icon="res://icon.png"
+run/main_scene="res://Game.tscn"
 
 [display]
 
