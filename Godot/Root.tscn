@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="Root" type="Line2D"]
+position = Vector2( 2, 1 )
+z_index = -1
+width = 2.0
+default_color = Color( 0.831373, 0.737255, 0.717647, 1 )
+joint_mode = 2
+end_cap_mode = 2
