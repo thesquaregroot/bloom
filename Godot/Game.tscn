@@ -32,7 +32,7 @@ color = Color( 0.482353, 0.223529, 0, 1 )
 z_index = 500
 occluder = SubResource( 1 )
 
-[node name="Sun" type="Node2D" parent="Background"]
+[node name="Sun" type="Node2D" parent="Background" groups=["Sun"]]
 position = Vector2( 164, 170 )
 
 [node name="Sprite" type="Sprite" parent="Background/Sun"]
