@@ -22,4 +22,3 @@ func _toggle_absorbing():
 
 func _mouse_over(value):
 	taprootSprite.material.set_shader_param("mouseOver", value)
-

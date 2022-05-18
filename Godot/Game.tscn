@@ -54,17 +54,17 @@ script = ExtResource( 5 )
 
 [node name="Taproot" parent="Plant" instance=ExtResource( 4 )]
 
-[node name="StemTree" type="Node2D" parent="Plant"]
+[node name="Body" type="Node2D" parent="Plant"]
 
-[node name="Stem1" type="Sprite" parent="Plant/StemTree"]
+[node name="Stem1" type="Sprite" parent="Plant/Body"]
 position = Vector2( 0, -64 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[node name="Leaf" parent="Plant/StemTree/Stem1" instance=ExtResource( 2 )]
+[node name="Leaf" parent="Plant/Body/Stem1" instance=ExtResource( 2 )]
 position = Vector2( -28, -120 )
 
-[node name="Leaf2" parent="Plant/StemTree/Stem1" instance=ExtResource( 2 )]
+[node name="Leaf2" parent="Plant/Body/Stem1" instance=ExtResource( 2 )]
 position = Vector2( 16, 88 )
 scale = Vector2( -1, 1 )
 
@@ -79,5 +79,4 @@ polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 5
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-autoplay = true
 bus = "Music"

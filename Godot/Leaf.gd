@@ -21,14 +21,17 @@ func _rotated(angle):
 	_update_sunlight()
 
 func _update_sunlight():
-	var sunVector = sun.global_position - sunlightTargetA.global_position
-	var leafNormalVector = sunlightTargetB.global_position - sunlightTargetA.global_position
-	var sunAngle = abs(sunVector.angle_to(leafNormalVector))
-	sunAngle = clamp(sunAngle, 0, PI/2)
-	var exposure = cos(sunAngle)
+	var exposure = get_current_exposure()
 	var particleCount = MAX_SUNLIGHT_PARTICLES * exposure
 	if particleCount < 1:
 		sunlightParticles.emitting = false
 	else:
 		sunlightParticles.amount = particleCount
 		sunlightParticles.emitting = true
+
+func get_current_exposure():
+	var sunVector = sun.global_position - sunlightTargetA.global_position
+	var leafNormalVector = sunlightTargetB.global_position - sunlightTargetA.global_position
+	var sunAngle = abs(sunVector.angle_to(leafNormalVector))
+	sunAngle = clamp(sunAngle, 0, PI/2)
+	return cos(sunAngle)
