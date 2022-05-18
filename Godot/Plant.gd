@@ -98,7 +98,7 @@ func _physics_process(delta):
 		_water -= photosynthensis
 		# gain sugar
 		_sugar += photosynthensis
-		print("Performed " + str(photosynthensis) + " photosynthesis, new total sugar: " + str(_sugar))
+		#print("Performed " + str(photosynthensis) + " photosynthesis, new total sugar: " + str(_sugar))
 
 func _get_all_root_segments(node):
 	var segments = []

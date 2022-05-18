@@ -79,4 +79,6 @@ polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 5
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -2.95
+autoplay = true
 bus = "Music"
