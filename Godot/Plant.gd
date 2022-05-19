@@ -19,13 +19,13 @@ var _nutrients = 0
 var _water = 0
 var _sugar = 0
 
-const STEM_SEGMENT_NUTRIENTS = 5
+const STEM_SEGMENT_NUTRIENTS = 25
 const STEM_SEGMENT_WATER = 25
 const STEM_SEGMENT_SUGAR = 25
 
 const STEM_SEGMENT_HEIGHT = -128
 
-const BASE_NUTRIENTS_COLLECTION = 1
+const BASE_NUTRIENTS_COLLECTION = 5
 const BASE_WATER_COLLECTION = 1
 const ROOT_NUTRIENTS_COLLECTION = 0.01
 const ROOT_WATER_COLLECTION = 0.01
@@ -101,7 +101,7 @@ func _add_new_root(parent, startPosition, endPosition):
 	root.add_point(endPosition)
 	parent.add_child(root)
 
-func _process(delta):
+func _process(_delta):
 	var canGrowPlant = _can_grow_stem_segment()
 	if canGrowPlant:
 		newStemSegmentArrow.visible = not previewStemSegmentSprite.visible
