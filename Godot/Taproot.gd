@@ -30,7 +30,7 @@ func _toggle_absorbing():
 func _mouse_over(value):
 	taprootSprite.material.set_shader_param("mouseOver", value)
 
-func _process(delta):
+func _process(_delta):
 	if not absorbing:
 		if OS.get_system_time_msecs() > (timeAbsorbingStopped + AUTO_ABSORB_DELAY_MSEC):
 			_set_absorbing(true)

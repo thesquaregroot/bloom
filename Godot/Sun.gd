@@ -5,9 +5,9 @@ signal moved
 var previousPosition
 
 func _ready():
-	previousPosition = global_position
+	previousPosition = position
 
 func _physics_process(_delta):
-	if global_position != previousPosition:
+	if position != previousPosition:
 		emit_signal("moved")
-	previousPosition = global_position
+	previousPosition = position
