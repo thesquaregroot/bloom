@@ -1,5 +1,6 @@
 extends Node2D
 
+var FlowerScene = preload("Flower.tscn")
 var StemSegmentScene = preload("StemSegment.tscn")
 var RootScene = preload("Root.tscn")
 var Leaf = preload("Leaf.gd")
