@@ -21,6 +21,7 @@ var size = 1
 var haveFlowerBud = false
 var flowerReference
 var hasBloomed = false
+var hasDied = false
 
 const MAX_SIZE = 4
 
@@ -149,6 +150,9 @@ func _add_new_root(parent, startPosition, endPosition):
 	parent.add_child(root)
 
 func _process(delta):
+	if hasDied:
+		print("dead")
+		return
 	if haveFlowerBud:
 		# flower bud consumes water rapidly
 		_water -= FLOWER_BUD_WATER_CONSUMPTION * delta
@@ -159,7 +163,7 @@ func _process(delta):
 				hasBloomed = true
 			else:
 				# game over
-				print("flower dies")
+				flowerReference.die()
 	else:
 		var canGrowBud = _can_grow_bud()
 		var canGrowPlant = _can_grow_stem_segment()
