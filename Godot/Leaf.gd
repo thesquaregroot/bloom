@@ -6,7 +6,7 @@ onready var sunlightTargetA = $SunlightTargetA
 onready var sunlightTargetB = $SunlightTargetB
 onready var normalVector = $SunlightTargetA/NormalVector
 
-const MAX_SUNLIGHT_PARTICLES = 32
+const MAX_SUNLIGHT_PARTICLES = 8
 
 export (bool) var active = true
 
@@ -19,7 +19,7 @@ func _ready():
 	if not active:
 		sunlightParticles.emitting = false
 	sun = get_tree().get_nodes_in_group("Sun")[0]
-	sun.connect("moved", self, "_update_sunlight")
+	sun.connect("light_changed", self, "_update_sunlight")
 	clickArea.connect("rotated", self, "_rotated")
 	clickArea.connect("deselected", self, "_show_normal_vector", [false])
 	_update_sunlight()
@@ -41,7 +41,7 @@ func _update_sunlight():
 		return
 	var exposure = get_current_exposure()
 	normalVector.scale = Vector2.ONE * exposure * 2
-	var particleCount = int(MAX_SUNLIGHT_PARTICLES * exposure)
+	var particleCount = int(MAX_SUNLIGHT_PARTICLES * sun.brightness * exposure)
 	if particleCount < 1:
 		sunlightParticles.emitting = false
 	else:

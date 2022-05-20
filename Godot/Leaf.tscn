@@ -55,6 +55,7 @@ position = Vector2( -121, -100 )
 [node name="SunlightParticles" type="Particles2D" parent="."]
 position = Vector2( -115, -208 )
 lifetime = 2.0
+preprocess = 2.0
 process_material = SubResource( 3 )
 texture = ExtResource( 4 )
 
