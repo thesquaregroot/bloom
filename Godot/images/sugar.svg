@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733335"
+   version="1.1"
+   id="svg8104"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="sugar.svg"
+   inkscape:export-filename="/home/groot/Projects/bloom/Godot/images/sugar.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8106"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="2.085"
+     inkscape:cx="134.29257"
+     inkscape:cy="112.70983"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-page="true" />
+  <defs
+     id="defs8101">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="59.109389 : -2.664946 : 1"
+       inkscape:vp_y="740.97343 : -684.52901 : 1"
+       inkscape:vp_z="59.109388 : -2.664946 : 1"
+       inkscape:persp3d-origin="33.866666 : 22.577778 : 1"
+       id="perspective1018" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;stroke:#000000;stroke-width:5"
+       id="path1886"
+       inkscape:flatsided="true"
+       sodipodi:sides="6"
+       sodipodi:cx="37.109108"
+       sodipodi:cy="67.678864"
+       sodipodi:r1="73.699448"
+       sodipodi:r2="63.825596"
+       sodipodi:arg1="0"
+       sodipodi:arg2="0.52359878"
+       inkscape:rounded="0.03"
+       inkscape:randomized="0"
+       d="m 110.80856,67.678864 c 0,2.210983 -34.93496,62.720106 -36.849728,63.825596 -1.914768,1.10549 -71.78468,1.10549 -73.69944784,0 C -1.6553837,130.39897 -36.59034,69.889847 -36.59034,67.678864 -36.59034,65.46788 -1.6553837,4.9587613 0.25938416,3.8532696 2.174152,2.7477779 72.044064,2.7477779 73.958832,3.8532696 75.8736,4.9587613 110.80856,65.46788 110.80856,67.678864 Z"
+       transform="matrix(0.26458333,0,0,0.26458333,24.048215,15.959968)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 24.040685,16.956027 V 6.328222"
+       id="path2034"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 53.366312,33.866666 V 27.624773"
+       id="path2071"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 23.962603,50.56968 V 44.7802"
+       id="path2073" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 43.775759,50.433395 v 4.773964"
+       id="path2075" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 14.439306,33.503293 v 5.926108"
+       id="path2077" />
+    <ellipse
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.32291667;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path2144"
+       cx="43.24667"
+       cy="17.311567"
+       rx="2.4409688"
+       ry="2.4848895" />
+  </g>
+</svg>

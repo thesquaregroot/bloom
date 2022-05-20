@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733335"
+   version="1.1"
+   id="svg8104"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="nutrients.svg"
+   inkscape:export-filename="/home/groot/Projects/bloom/Godot/images/nutrients.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8106"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="0.91"
+     inkscape:cx="109.89011"
+     inkscape:cy="180.21978"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-page="true" />
+  <defs
+     id="defs8101">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="59.109389 : -2.664946 : 1"
+       inkscape:vp_y="740.97343 : -684.52901 : 1"
+       inkscape:vp_z="59.109388 : -2.664946 : 1"
+       inkscape:persp3d-origin="33.866666 : 22.577778 : 1"
+       id="perspective1018" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1511">
+      <rect
+         style="fill:#917c6f;stroke:#000000;stroke-width:0.814516"
+         id="rect1084"
+         width="41.703117"
+         height="41.703117"
+         x="13.015108"
+         y="13.015108"
+         ry="0" />
+      <ellipse
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="path1210"
+         cx="22.869448"
+         cy="24.631798"
+         rx="2.5572736"
+         ry="2.1858313" />
+      <circle
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="path1234"
+         cx="38.910488"
+         cy="42.332775"
+         r="2.4187479" />
+      <circle
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="path1236"
+         cx="46.409985"
+         cy="21.434965"
+         r="2.4710989" />
+      <circle
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="path1238"
+         cx="27.334854"
+         cy="48.448715"
+         r="2.2264876" />
+      <rect
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.58811"
+         id="rect1414"
+         width="6.4386764"
+         height="3.9195921"
+         x="21.775686"
+         y="34.156036" />
+      <rect
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="rect1416"
+         width="4.6268864"
+         height="4.6268864"
+         x="32.17083"
+         y="25.686497" />
+      <rect
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="rect1418"
+         width="4.3073688"
+         height="4.3073688"
+         x="43.812969"
+         y="43.580196" />
+      <rect
+         style="fill:#ac9d93;stroke:#000000;stroke-width:1.32292"
+         id="rect1420"
+         width="2.9407475"
+         height="2.9407475"
+         x="42.216309"
+         y="31.091057" />
+    </g>
+  </g>
+</svg>

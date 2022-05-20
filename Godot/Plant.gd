@@ -13,11 +13,20 @@ onready var stemSegmentClickArea = $NewSegmentPlaceholder/ClickArea
 onready var rootsClickArea = $RootsClickArea
 onready var roots = $Roots
 
+onready var resourceMeters = $"../CanvasLayer/ResourceMeters"
+
 var size = 1
 
 var _nutrients = 0
 var _water = 0
 var _sugar = 0
+
+var _maxWater = 100.0
+var _maxNutrients = 100.0
+var _maxSugar = 100.0
+
+const PHOTOSYNTHESIS_WATER_COST = 6
+const PHOTOSYNTHESIS_NUTRIENT_COST = 1
 
 const STEM_SEGMENT_NUTRIENTS = 25
 const STEM_SEGMENT_WATER = 25
@@ -122,23 +131,28 @@ func _physics_process(delta):
 			totalRootLength += segment[0].distance_to(segment[1])
 		_nutrients += (BASE_NUTRIENTS_COLLECTION + ROOT_NUTRIENTS_COLLECTION * totalRootLength) * delta
 		_water += (BASE_WATER_COLLECTION + ROOT_WATER_COLLECTION * totalRootLength) * delta
+		# ensure maxes are respected
+		_nutrients = clamp(_nutrients, 0, _maxNutrients)
+		_water = clamp(_water, 0, _maxWater)
 
 	# perform photosynthesis
 	var currentSunlight = 0
 	for leaf in _get_all_leaves(body):
 		currentSunlight += MAX_SUNLIGHT_PER_LEAF * leaf.get_current_exposure()
 	# limited by current sunlight, available nutrients, and available water
-	var photosynthensis = min(currentSunlight * 2.0 * delta, min(_nutrients, _water))
+	var photosynthensis = min(currentSunlight * 2.0 * delta, min(_nutrients / PHOTOSYNTHESIS_NUTRIENT_COST, _water / PHOTOSYNTHESIS_WATER_COST))
 	if photosynthensis > 0:
 		# consume nutrients and water
-		_nutrients -= photosynthensis
-		_water -= photosynthensis
+		_nutrients -= photosynthensis * PHOTOSYNTHESIS_NUTRIENT_COST
+		_water -= photosynthensis * PHOTOSYNTHESIS_WATER_COST
 		# gain sugar
 		_sugar += photosynthensis
+		_sugar = clamp(_sugar, 0, _maxSugar)
 		#print("Performed " + str(photosynthensis) + " photosynthesis, new total sugar: " + str(_sugar))
-	print("nutrients: " + str(_nutrients))
-	print("water: " + str(_water))
-	print("sugar: " + str(_sugar))
+	#print("nutrients: " + str(_nutrients))
+	#print("water: " + str(_water))
+	#print("sugar: " + str(_sugar))
+	_update_resource_meters()
 
 func _get_all_root_segments(node):
 	var segments = []
@@ -160,3 +174,6 @@ func _get_all_leaves(node):
 		else:
 			leaves.append_array(_get_all_leaves(child))
 	return leaves
+
+func _update_resource_meters():
+	resourceMeters.update_meters(_water / _maxWater, _nutrients / _maxNutrients, _sugar / _maxSugar)

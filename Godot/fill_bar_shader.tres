@@ -1,0 +1,22 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float amount : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 fillColor : hint_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+const float gradientStart = 0.21875;
+const float gradientEnd = 0.9845;
+
+void fragment() {
+	vec4 textureColor = texture(TEXTURE, UV);
+	float uvCutoff = (gradientEnd - gradientStart) * amount + gradientStart;
+	vec3 uvColor = textureColor.rgb;
+	if (UV.x < uvCutoff) {
+		uvColor = fillColor.rgb;
+	}
+	COLOR.rgb = uvColor;
+	COLOR.a = textureColor.a;
+}"

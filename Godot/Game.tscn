@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://images/sun.png" type="Texture" id=1]
 [ext_resource path="res://Leaf.tscn" type="PackedScene" id=2]
@@ -12,6 +12,13 @@
 [ext_resource path="res://ShadowTexture.tres" type="Material" id=10]
 [ext_resource path="res://StemSegment.tscn" type="PackedScene" id=11]
 [ext_resource path="res://images/arrow.svg" type="Texture" id=12]
+[ext_resource path="res://images/resource-bar.png" type="Texture" id=13]
+[ext_resource path="res://images/resource-bar-fill-area.png" type="Texture" id=14]
+[ext_resource path="res://images/nutrients.png" type="Texture" id=16]
+[ext_resource path="res://images/sugar.png" type="Texture" id=17]
+[ext_resource path="res://images/water.png" type="Texture" id=18]
+[ext_resource path="res://fill_bar_shader.tres" type="Shader" id=19]
+[ext_resource path="res://ResourceMeters.gd" type="Script" id=20]
 
 [sub_resource type="Animation" id=9]
 resource_name = "DaySunMovement"
@@ -452,6 +459,24 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
 
+[sub_resource type="ShaderMaterial" id=17]
+resource_local_to_scene = true
+shader = ExtResource( 19 )
+shader_param/amount = 0.5
+shader_param/fillColor = Color( 0, 0, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=18]
+resource_local_to_scene = true
+shader = ExtResource( 19 )
+shader_param/amount = 0.5
+shader_param/fillColor = Color( 0.290196, 0.219608, 0.219608, 1 )
+
+[sub_resource type="ShaderMaterial" id=19]
+resource_local_to_scene = true
+shader = ExtResource( 19 )
+shader_param/amount = 0.5
+shader_param/fillColor = Color( 0, 0, 0, 1 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 9 )
 
@@ -564,6 +589,106 @@ script = ExtResource( 8 )
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Plant/RootsClickArea"]
 z_index = -1
 polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 512, 800, -512, 800 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ResourceMeters" type="Control" parent="CanvasLayer"]
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 0.25
+script = ExtResource( 20 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ResourceMeters"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 10.0
+margin_right = -10.0
+grow_horizontal = 0
+custom_constants/separation = 4
+
+[node name="WaterMeter" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer"]
+margin_right = 128.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 128, 32 )
+size_flags_horizontal = 2
+size_flags_vertical = 0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/WaterMeter"]
+anchor_right = 0.22
+anchor_bottom = 1.0
+hint_tooltip = "Water"
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="FillBar" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/WaterMeter"]
+material = SubResource( 17 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+
+[node name="NutrientsMeter" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer"]
+margin_top = 36.0
+margin_right = 128.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 128, 32 )
+size_flags_horizontal = 2
+size_flags_vertical = 0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/NutrientsMeter"]
+anchor_right = 0.22
+anchor_bottom = 1.0
+hint_tooltip = "Nutrients"
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="FillBar" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/NutrientsMeter"]
+material = SubResource( 18 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+
+[node name="SugarMeter" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer"]
+margin_top = 72.0
+margin_right = 128.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 128, 32 )
+size_flags_horizontal = 2
+size_flags_vertical = 0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/SugarMeter"]
+anchor_right = 0.22
+anchor_bottom = 1.0
+hint_tooltip = "Sugar"
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="FillBar" type="TextureRect" parent="CanvasLayer/ResourceMeters/VBoxContainer/SugarMeter"]
+material = SubResource( 19 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
