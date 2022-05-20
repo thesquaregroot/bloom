@@ -30,8 +30,8 @@
      units="px"
      width="256px"
      inkscape:zoom="1.945"
-     inkscape:cx="70.694087"
-     inkscape:cy="206.42674"
+     inkscape:cx="93.316195"
+     inkscape:cy="185.86118"
      inkscape:window-width="1495"
      inkscape:window-height="970"
      inkscape:window-x="2070"
@@ -79,7 +79,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:url(#linearGradient1978);fill-opacity:1;stroke:#225500;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:url(#linearGradient1978);fill-opacity:1;stroke:#000000;stroke-width:1.32291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 29.31105,57.238736 2.955498,0.03574 c 0,0 4.559552,0.376769 6.119473,-2.119847 1.553455,-2.486268 3.284998,-10.675807 3.188032,-20.804063 -0.09691,-10.122112 -4.58413,-21.358004 -8.272388,-25.4074657 -2.395499,-2.6300976 -3.155131,-2.3740743 -4.931298,0.106827 -0.711601,0.9939447 -6.58835,8.1569267 -7.168843,18.2617487 -0.60782,10.580516 -0.812548,22.407501 2.396619,27.075699 1.461805,2.126408 5.712907,2.851358 5.712907,2.851358 z"
        id="path857"
        sodipodi:nodetypes="ccssssssc" />

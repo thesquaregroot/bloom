@@ -7,16 +7,22 @@ var Leaf = preload("Leaf.gd")
 
 onready var body = $Body
 onready var taproot = $Taproot
-onready var newStemSegmentArrow = $NewSegmentPlaceholder/Arrow
-onready var previewStemSegment = $NewSegmentPlaceholder
-onready var previewStemSegmentSprite = $NewSegmentPlaceholder/StemSegment
-onready var stemSegmentClickArea = $NewSegmentPlaceholder/ClickArea
+onready var growthPreview = $GrowthPreview
+onready var growthArrow = $GrowthPreview/Arrow
+onready var flowerBudPreview = $GrowthPreview/FlowerBud
+onready var stemSegmentPreview = $GrowthPreview/StemSegment
+onready var growthPreviewClickArea = $GrowthPreview/ClickArea
 onready var rootsClickArea = $RootsClickArea
 onready var roots = $Roots
 
 onready var resourceMeters = $"../CanvasLayer/ResourceMeters"
 
 var size = 1
+var haveFlowerBud = false
+var flowerReference
+var hasBloomed = false
+
+const MAX_SIZE = 4
 
 var _nutrients = 0
 var _water = 0
@@ -33,6 +39,12 @@ const STEM_SEGMENT_NUTRIENTS = 25
 const STEM_SEGMENT_WATER = 25
 const STEM_SEGMENT_SUGAR = 25
 
+const FLOWER_BUD_NUTRIENTS = 100
+const FLOWER_BUD_WATER = 100
+const FLOWER_BUD_SUGAR = 250
+
+const FLOWER_BUD_WATER_CONSUMPTION = 1
+
 const STEM_SEGMENT_HEIGHT = -128
 
 const BASE_NUTRIENTS_COLLECTION = 5
@@ -44,16 +56,21 @@ const MAX_SUNLIGHT_PER_LEAF = 0.1
 const ROOT_NUTRIENT_COST = 1
 
 func _ready():
-	newStemSegmentArrow.visible = false
-	previewStemSegmentSprite.visible = false
-	stemSegmentClickArea.connect("clicked", self, "_add_stem_segment")
-	stemSegmentClickArea.connect("mouse_over", self, "_show_stem_segment_preview")
+	growthArrow.visible = false
+	flowerBudPreview.visible = false
+	stemSegmentPreview.visible = false
+	growthPreviewClickArea.connect("clicked", self, "_grow_plant")
+	growthPreviewClickArea.connect("mouse_over", self, "_show_growth_preview")
 	rootsClickArea.connect("clicked", self, "_add_root_segment")
 
+func _grow_plant():
+	if _can_grow_bud():
+		_add_flower_bud()
+	if _can_grow_stem_segment():
+		_add_stem_segment()
+
 func _add_stem_segment():
-	if not _can_grow_stem_segment():
-		return
-	previewStemSegment.position.y += STEM_SEGMENT_HEIGHT
+	growthPreview.position.y += STEM_SEGMENT_HEIGHT
 	var newStemSegment = StemSegmentScene.instance()
 	newStemSegment.position.y = (size + 0.5) * STEM_SEGMENT_HEIGHT # add .5 since the origin is in the center of the texture
 	body.add_child(newStemSegment)
@@ -61,11 +78,31 @@ func _add_stem_segment():
 	_water -= STEM_SEGMENT_WATER
 	_sugar -= STEM_SEGMENT_SUGAR
 	size += 1
+	_maxNutrients += 50
+	_maxWater += 50
+	_maxSugar += 100
 
-func _show_stem_segment_preview(shouldShow):
+func _add_flower_bud():
+	var flowerBud = FlowerScene.instance()
+	flowerBud.position.y = (size + 0.5) * STEM_SEGMENT_HEIGHT # add .5 since the origin is in the center of the texture
+	body.add_child(flowerBud)
+	_nutrients -= FLOWER_BUD_NUTRIENTS
+	_water -= FLOWER_BUD_WATER / 2.0 # keep half of the water, to prevent ending immediately
+	_sugar -= FLOWER_BUD_SUGAR
+	flowerReference = flowerBud
+	haveFlowerBud = true
+
+func _show_growth_preview(shouldShow):
+	if _can_grow_bud():
+		flowerBudPreview.visible = shouldShow
+		stemSegmentPreview.visible = false
+		return
+	else:
+		flowerBudPreview.visible = false
+
 	if not _can_grow_stem_segment():
 		shouldShow = false
-	previewStemSegmentSprite.visible = shouldShow
+	stemSegmentPreview.visible = shouldShow
 
 func _add_root_segment():
 	taproot.absorbing = false
@@ -111,15 +148,40 @@ func _add_new_root(parent, startPosition, endPosition):
 	root.add_point(endPosition)
 	parent.add_child(root)
 
-func _process(_delta):
-	var canGrowPlant = _can_grow_stem_segment()
-	if canGrowPlant:
-		newStemSegmentArrow.visible = not previewStemSegmentSprite.visible
+func _process(delta):
+	if haveFlowerBud:
+		# flower bud consumes water rapidly
+		_water -= FLOWER_BUD_WATER_CONSUMPTION * delta
+		if _water < 0:
+			if not hasBloomed:
+				_water = 100 # boost of water upon blooming
+				flowerReference.bloom()
+				hasBloomed = true
+			else:
+				# game over
+				print("flower dies")
 	else:
-		newStemSegmentArrow.visible = false
+		var canGrowBud = _can_grow_bud()
+		var canGrowPlant = _can_grow_stem_segment()
+		if canGrowBud:
+			growthArrow.visible = not flowerBudPreview.visible
+		elif canGrowPlant:
+			growthArrow.visible = not stemSegmentPreview.visible
+		else:
+			growthArrow.visible = false
+
+func _can_grow_bud():
+	# shortcut to test plant lifecycle
+	#return size == MAX_SIZE
+	return _nutrients > FLOWER_BUD_NUTRIENTS and \
+		_water > FLOWER_BUD_WATER and \
+		_sugar > FLOWER_BUD_SUGAR
 
 func _can_grow_stem_segment():
-	return _nutrients > STEM_SEGMENT_NUTRIENTS and \
+	# shortcut to test plant lifecycle
+	#return size < MAX_SIZE
+	return size < MAX_SIZE and \
+		_nutrients > STEM_SEGMENT_NUTRIENTS and \
 		_water > STEM_SEGMENT_WATER and \
 		_sugar > STEM_SEGMENT_SUGAR
 

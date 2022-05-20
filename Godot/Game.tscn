@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://images/sun.png" type="Texture" id=1]
 [ext_resource path="res://Leaf.tscn" type="PackedScene" id=2]
@@ -14,11 +14,13 @@
 [ext_resource path="res://images/arrow.svg" type="Texture" id=12]
 [ext_resource path="res://images/resource-bar.png" type="Texture" id=13]
 [ext_resource path="res://images/resource-bar-fill-area.png" type="Texture" id=14]
+[ext_resource path="res://images/bud.png" type="Texture" id=15]
 [ext_resource path="res://images/nutrients.png" type="Texture" id=16]
 [ext_resource path="res://images/sugar.png" type="Texture" id=17]
 [ext_resource path="res://images/water.png" type="Texture" id=18]
 [ext_resource path="res://fill_bar_shader.tres" type="Shader" id=19]
 [ext_resource path="res://ResourceMeters.gd" type="Script" id=20]
+[ext_resource path="res://images/flower-base.png" type="Texture" id=21]
 
 [sub_resource type="Animation" id=9]
 resource_name = "DaySunMovement"
@@ -548,33 +550,48 @@ script = ExtResource( 5 )
 
 [node name="StemSegment" parent="Plant/Body" instance=ExtResource( 11 )]
 
-[node name="NewSegmentPlaceholder" type="Node2D" parent="Plant"]
+[node name="GrowthPreview" type="Node2D" parent="Plant"]
 position = Vector2( 0, -192 )
 
-[node name="StemSegment" type="Sprite" parent="Plant/NewSegmentPlaceholder"]
+[node name="StemSegment" type="Sprite" parent="Plant/GrowthPreview"]
 visible = false
 material = ExtResource( 10 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[node name="Leaf" parent="Plant/NewSegmentPlaceholder/StemSegment" instance=ExtResource( 2 )]
+[node name="Leaf" parent="Plant/GrowthPreview/StemSegment" instance=ExtResource( 2 )]
 material = ExtResource( 10 )
 position = Vector2( -28, -120 )
 active = false
 
-[node name="Leaf2" parent="Plant/NewSegmentPlaceholder/StemSegment" instance=ExtResource( 2 )]
+[node name="Leaf2" parent="Plant/GrowthPreview/StemSegment" instance=ExtResource( 2 )]
 material = ExtResource( 10 )
 position = Vector2( 16, 88 )
 scale = Vector2( -1, 1 )
 active = false
 
-[node name="ClickArea" type="Area2D" parent="Plant/NewSegmentPlaceholder"]
+[node name="FlowerBud" type="Node2D" parent="Plant/GrowthPreview"]
+visible = false
+
+[node name="Base" type="Sprite" parent="Plant/GrowthPreview/FlowerBud"]
+material = ExtResource( 10 )
+position = Vector2( 1.25, 32 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
+
+[node name="Bud" type="Sprite" parent="Plant/GrowthPreview/FlowerBud"]
+material = ExtResource( 10 )
+position = Vector2( 1.25, 31 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 15 )
+
+[node name="ClickArea" type="Area2D" parent="Plant/GrowthPreview"]
 script = ExtResource( 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant/NewSegmentPlaceholder/ClickArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plant/GrowthPreview/ClickArea"]
 shape = SubResource( 6 )
 
-[node name="Arrow" type="Sprite" parent="Plant/NewSegmentPlaceholder"]
+[node name="Arrow" type="Sprite" parent="Plant/GrowthPreview"]
 visible = false
 material = SubResource( 8 )
 position = Vector2( 0, 50 )
