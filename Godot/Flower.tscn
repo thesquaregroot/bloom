@@ -55,7 +55,7 @@ orbit_velocity_random = 0.0
 angle = 180.0
 angle_random = 1.0
 scale = 0.35
-color = Color( 0.67451, 0.611765, 0.529412, 1 )
+color = Color( 0.960784, 0.545098, 0, 1 )
 color_ramp = SubResource( 28 )
 
 [sub_resource type="Animation" id=22]
@@ -150,7 +150,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Bloom:modulate")
+tracks/2/path = NodePath("Bloom:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false

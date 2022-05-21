@@ -28,6 +28,8 @@ var hasDied = false
 
 const MAX_SIZE = 4
 
+var flowerColor
+
 var _nutrients = 0
 var _water = 0
 var _sugar = 0
@@ -60,6 +62,9 @@ const MAX_SUNLIGHT_PER_LEAF = 0.1
 const ROOT_NUTRIENT_COST = 1
 
 func _ready():
+	# random flower color every game
+	flowerColor = Color(randf(), randf(), randf(), 1.0)
+
 	growthArrow.visible = false
 	flowerBudPreview.visible = false
 	stemSegmentPreview.visible = false
@@ -88,6 +93,7 @@ func _add_stem_segment():
 
 func _add_flower_bud():
 	var flowerBud = FlowerScene.instance()
+	flowerBud.set_flower_color(flowerColor)
 	flowerBud.position.y = (size + 0.5) * STEM_SEGMENT_HEIGHT # add .5 since the origin is in the center of the texture
 	body.add_child(flowerBud)
 	_nutrients -= FLOWER_BUD_NUTRIENTS
