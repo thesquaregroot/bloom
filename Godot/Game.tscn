@@ -490,6 +490,8 @@ anims/DayToNight = SubResource( 13 )
 anims/NightToDay = SubResource( 16 )
 anims/RESET = SubResource( 10 )
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="NightTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 50.0

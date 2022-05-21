@@ -6,6 +6,7 @@ onready var nutrientParticles = $AbsorbtionParticles
 
 const AUTO_ABSORB_DELAY_MSEC = 5000
 
+var dead = false
 var absorbing setget _set_absorbing
 var timeAbsorbingStopped
 
@@ -31,6 +32,11 @@ func _mouse_over(value):
 	taprootSprite.material.set_shader_param("mouseOver", value)
 
 func _process(_delta):
-	if not absorbing:
+	if not absorbing and not dead:
 		if OS.get_system_time_msecs() > (timeAbsorbingStopped + AUTO_ABSORB_DELAY_MSEC):
 			_set_absorbing(true)
+
+func die():
+	_set_absorbing(false)
+	nutrientParticles.visible = false
+	dead = true

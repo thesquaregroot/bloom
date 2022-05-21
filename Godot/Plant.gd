@@ -5,6 +5,8 @@ var StemSegmentScene = preload("StemSegment.tscn")
 var RootScene = preload("Root.tscn")
 var Leaf = preload("Leaf.gd")
 
+
+onready var game = $".."
 onready var body = $Body
 onready var taproot = $Taproot
 onready var growthPreview = $GrowthPreview
@@ -33,8 +35,8 @@ var _maxWater = 100.0
 var _maxNutrients = 100.0
 var _maxSugar = 100.0
 
-const PHOTOSYNTHESIS_WATER_COST = 6
-const PHOTOSYNTHESIS_NUTRIENT_COST = 1
+const PHOTOSYNTHESIS_WATER_COST = 10
+const PHOTOSYNTHESIS_NUTRIENT_COST = 2
 
 const STEM_SEGMENT_NUTRIENTS = 25
 const STEM_SEGMENT_WATER = 25
@@ -94,6 +96,11 @@ func _add_flower_bud():
 	haveFlowerBud = true
 
 func _show_growth_preview(shouldShow):
+	if haveFlowerBud:
+		# cannot grow further
+		flowerBudPreview.visible = false
+		stemSegmentPreview.visible = false
+		return
 	if _can_grow_bud():
 		flowerBudPreview.visible = shouldShow
 		stemSegmentPreview.visible = false
@@ -151,7 +158,6 @@ func _add_new_root(parent, startPosition, endPosition):
 
 func _process(delta):
 	if hasDied:
-		print("dead")
 		return
 	if haveFlowerBud:
 		# flower bud consumes water rapidly
@@ -163,7 +169,8 @@ func _process(delta):
 				hasBloomed = true
 			else:
 				# game over
-				flowerReference.die()
+				game.scroll_to(flowerReference.global_position.y, 1, self, "_die")
+				game.set_music_volume(5)
 	else:
 		var canGrowBud = _can_grow_bud()
 		var canGrowPlant = _can_grow_stem_segment()
@@ -174,16 +181,27 @@ func _process(delta):
 		else:
 			growthArrow.visible = false
 
+func _die():
+	hasDied = true
+	for child in body.get_children():
+		if child.has_method("die"):
+			child.die()
+	taproot.die()
+	game.scroll_to(self.global_position.y, 6, self, "_exit", 2)
+
+func _exit():
+	print("EXIT")
+
 func _can_grow_bud():
 	# shortcut to test plant lifecycle
-	#return size == MAX_SIZE
+	return size == MAX_SIZE
 	return _nutrients > FLOWER_BUD_NUTRIENTS and \
 		_water > FLOWER_BUD_WATER and \
 		_sugar > FLOWER_BUD_SUGAR
 
 func _can_grow_stem_segment():
 	# shortcut to test plant lifecycle
-	#return size < MAX_SIZE
+	return size < MAX_SIZE
 	return size < MAX_SIZE and \
 		_nutrients > STEM_SEGMENT_NUTRIENTS and \
 		_water > STEM_SEGMENT_WATER and \
