@@ -7,6 +7,7 @@ var Leaf = preload("Leaf.gd")
 
 
 onready var game = $".."
+onready var undergroundResources = $"../UndergroundResources"
 onready var body = $Body
 onready var taproot = $Taproot
 onready var growthPreview = $GrowthPreview
@@ -142,6 +143,15 @@ func _add_root_segment():
 		closestObject.add_point(endPosition)
 	else:
 		_add_new_root(roots, closestPoint, endPosition)
+	# activate any newly intersected resources
+	var rootSegments = _get_all_root_segments(roots)
+	for resource in undergroundResources.get_children():
+		if not resource.active:
+			for segment in rootSegments:
+				var rootRelativeResourcePosition = resource.global_position - roots.global_position
+				if Geometry.segment_intersects_circle(segment[0], segment[1], rootRelativeResourcePosition, resource.intersectionRadius) >= 0:
+					resource.active = true
+					break
 
 func _get_root_lines(parent):
 	var lines = []
@@ -194,14 +204,14 @@ func _exit():
 
 func _can_grow_bud():
 	# shortcut to test plant lifecycle
-	return size == MAX_SIZE
+	#return size == MAX_SIZE
 	return _nutrients > FLOWER_BUD_NUTRIENTS and \
 		_water > FLOWER_BUD_WATER and \
 		_sugar > FLOWER_BUD_SUGAR
 
 func _can_grow_stem_segment():
 	# shortcut to test plant lifecycle
-	return size < MAX_SIZE
+	#return size < MAX_SIZE
 	return size < MAX_SIZE and \
 		_nutrients > STEM_SEGMENT_NUTRIENTS and \
 		_water > STEM_SEGMENT_WATER and \
@@ -212,10 +222,18 @@ func _physics_process(delta):
 	if taproot.absorbing:
 		var rootSegments = _get_all_root_segments(roots)
 		var totalRootLength = 0
+		# get bonuses from root length
 		for segment in rootSegments:
 			totalRootLength += segment[0].distance_to(segment[1])
-		_nutrients += (BASE_NUTRIENTS_COLLECTION + ROOT_NUTRIENTS_COLLECTION * totalRootLength) * delta
-		_water += (BASE_WATER_COLLECTION + ROOT_WATER_COLLECTION * totalRootLength) * delta
+		var bonusNutrients = ROOT_NUTRIENTS_COLLECTION * totalRootLength
+		var bonusWater = ROOT_WATER_COLLECTION * totalRootLength
+		# get bonuses for active resources
+		for resource in undergroundResources.get_children():
+			if resource.active:
+				bonusNutrients += resource.nutrients
+				bonusWater += resource.water
+		_nutrients += (BASE_NUTRIENTS_COLLECTION + bonusNutrients) * delta
+		_water += (BASE_WATER_COLLECTION + bonusWater) * delta
 		# ensure maxes are respected
 		_nutrients = clamp(_nutrients, 0, _maxNutrients)
 		_water = clamp(_water, 0, _maxWater)

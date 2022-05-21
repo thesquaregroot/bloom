@@ -609,6 +609,9 @@ script = ExtResource( 8 )
 z_index = -1
 polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 512, 800, -512, 800 )
 
+[node name="UndergroundResources" type="Node2D" parent="."]
+position = Vector2( 0, 400 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ResourceMeters" type="Control" parent="CanvasLayer"]
