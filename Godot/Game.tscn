@@ -657,11 +657,11 @@ text = "Quit Game"
 
 [node name="CreditsPanel" type="Panel" parent="CanvasLayer"]
 pause_mode = 2
-visible = false
 anchor_left = 0.2
 anchor_top = 0.2
 anchor_right = 0.8
 anchor_bottom = 0.8
+size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CreditsPanel"]
 anchor_right = 1.0
@@ -670,24 +670,21 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
-margin_top = 3.0
+margin_top = 24.0
 margin_right = 614.0
-margin_bottom = 17.0
-text = "Created by Andrew Groot"
-align = 1
+margin_bottom = 106.0
+text = "Created by Andrew Groot.
 
-[node name="Label2" type="Label" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
-margin_top = 37.0
-margin_right = 614.0
-margin_bottom = 51.0
-text = "for Godot Jam #45"
+All music, sound effects, and art were created for this game.
+
+Godot Jam #45"
 align = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
-margin_top = 71.0
+margin_top = 126.0
 margin_right = 614.0
-margin_bottom = 146.0
-rect_min_size = Vector2( 0, 75 )
+margin_bottom = 176.0
+rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 texture = ExtResource( 4 )
 expand = true
@@ -701,10 +698,10 @@ align = 1
 valign = 1
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
-margin_top = 166.0
+margin_top = 196.0
 margin_right = 614.0
-margin_bottom = 316.0
-rect_min_size = Vector2( 0, 150 )
+margin_bottom = 296.0
+rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
 texture = ExtResource( 5 )
 expand = true
@@ -719,9 +716,9 @@ valign = 1
 
 [node name="CloseButton" type="Button" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
 margin_left = 283.0
-margin_top = 336.0
+margin_top = 316.0
 margin_right = 330.0
-margin_bottom = 356.0
+margin_bottom = 336.0
 size_flags_horizontal = 4
 text = "Close"
 
