@@ -15,7 +15,7 @@ config/description="A 2D plant growing game made in Godot."
 run/main_scene="res://Game.tscn"
 boot_splash/image="res://images/logo.png"
 boot_splash/fullsize=false
-config/icon="res://images/logo.svg"
+config/icon="res://images/logo.png"
 
 [display]
 
