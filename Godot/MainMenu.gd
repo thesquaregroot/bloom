@@ -2,12 +2,12 @@ extends Control
 
 onready var newGameButton = $VBoxContainer/NewGameButton
 onready var howToPlayButton = $VBoxContainer/HowToPlayButton
-onready var howToPlayCloseButton = $HowToPlayPanel/VBoxContainer/CloseButton
+onready var howToPlayCloseButton = $"../HowToPlayPanel/VBoxContainer/CloseButton"
 onready var creditsButton = $VBoxContainer/CreditsButton
-onready var creditsCloseButton = $CreditsPanel/VBoxContainer/CloseButton
+onready var creditsCloseButton = $"../CreditsPanel/VBoxContainer/CloseButton"
 
-onready var howToPlayPanel = $HowToPlayPanel
-onready var creditsPanel = $CreditsPanel
+onready var howToPlayPanel = $"../HowToPlayPanel"
+onready var creditsPanel = $"../CreditsPanel"
 
 signal new_game
 

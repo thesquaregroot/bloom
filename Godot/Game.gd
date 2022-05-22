@@ -15,6 +15,7 @@ onready var groundArea = $Background/Ground
 onready var undergroundResources = $UndergroundResources
 onready var resourceMeters = $CanvasLayer/ResourceMeters
 onready var mainMenu = $CanvasLayer/MainMenu
+onready var pauseMenu = $CanvasLayer/PauseMenu
 
 const RESOURCE_BORDER = 20
 const WATER_COUNT = 15
@@ -24,6 +25,7 @@ var scrollEnabled = true
 var groundAreaWidth
 var groundAreaHeight
 
+var isInGame
 var plant
 
 func _ready():
@@ -32,8 +34,10 @@ func _ready():
 	nightTimer.connect("timeout", self, "_next_animation", ["NightTimer"])
 	animationPlayer.play("DaySunMovement")
 	mainMenu.connect("new_game", self, "_start_game")
+	pauseMenu.connect("quit_game", self, "_quit_game")
 	undergroundResources.hide()
 	resourceMeters.hide()
+	pauseMenu.hide()
 
 func _start_game():
 	# create plant
@@ -52,12 +56,17 @@ func _start_game():
 	undergroundResources.show()
 	resourceMeters.show()
 	mainMenu.hide()
+	isInGame = true
+
+func _quit_game():
+	return_to_main_menu()
 
 func return_to_main_menu():
 	undergroundResources.hide()
 	resourceMeters.hide()
 	plant.queue_free()
 	mainMenu.show()
+	isInGame = false
 
 func _next_animation(justFinished):
 	if justFinished == "DaySunMovement":
@@ -84,6 +93,8 @@ func _add_resource(resource):
 	resource.position = Vector2(xPos, yPos)
 
 func _input(event):
+	if isInGame and Input.is_action_pressed("ui_cancel"):
+		pauseMenu.pause()
 	if scrollEnabled and event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_UP:
 			_scroll(10)
