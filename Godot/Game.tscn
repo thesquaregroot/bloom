@@ -410,6 +410,7 @@ void fragment() {
 	if (randomValue < starExistanceCutoff) {
 		float variation = brightnessVariability * cos(TIME * 11.0 * UV.x) * sin(TIME * 13.0 * UV.y);
 		starBrightness = randomValue * (1.0 + variation) / starExistanceCutoff;
+		starBrightness = clamp(starBrightness, 0.0, 2.0);
 		color.rgb = mix(color.rgb, vec3(1.0), starBrightness * starVisibility);
 	}
 	COLOR = color;
