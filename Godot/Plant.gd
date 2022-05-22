@@ -206,7 +206,7 @@ func _die():
 	game.scroll_to(self.global_position.y, 6, self, "_exit", 2)
 
 func _exit():
-	print("EXIT")
+	game.return_to_main_menu()
 
 func _can_grow_bud():
 	# shortcut to test plant lifecycle

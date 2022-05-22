@@ -1,5 +1,6 @@
 extends Node2D
 
+var PlantScene = preload("Plant.tscn")
 var NutrientScene = preload("Nutrient.tscn")
 var WaterScene = preload("Water.tscn")
 
@@ -12,6 +13,8 @@ onready var nightTimer = $NightTimer
 
 onready var groundArea = $Background/Ground
 onready var undergroundResources = $UndergroundResources
+onready var resourceMeters = $CanvasLayer/ResourceMeters
+onready var mainMenu = $CanvasLayer/MainMenu
 
 const RESOURCE_BORDER = 20
 const WATER_COUNT = 15
@@ -21,18 +24,40 @@ var scrollEnabled = true
 var groundAreaWidth
 var groundAreaHeight
 
+var plant
+
 func _ready():
 	randomize()
 	animationPlayer.connect("animation_finished", self, "_next_animation")
 	nightTimer.connect("timeout", self, "_next_animation", ["NightTimer"])
 	animationPlayer.play("DaySunMovement")
-	
+	mainMenu.connect("new_game", self, "_start_game")
+	undergroundResources.hide()
+	resourceMeters.hide()
+
+func _start_game():
+	# create plant
+	plant = PlantScene.instance()
+	add_child(plant)
+
+	# disperse resources
 	var groundRect = groundArea.rect_size
 	if groundArea.rect_rotation == 90:
 		groundRect = Vector2(groundRect.y, groundRect.x)
 	groundAreaWidth = groundRect.x
 	groundAreaHeight = groundRect.y
 	_populate_underground_resources()
+
+	# cleanup
+	undergroundResources.show()
+	resourceMeters.show()
+	mainMenu.hide()
+
+func return_to_main_menu():
+	undergroundResources.hide()
+	resourceMeters.hide()
+	plant.queue_free()
+	mainMenu.show()
 
 func _next_animation(justFinished):
 	if justFinished == "DaySunMovement":

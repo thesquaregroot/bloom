@@ -1,0 +1,105 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Plant.gd" type="Script" id=1]
+[ext_resource path="res://Taproot.gd" type="Script" id=2]
+[ext_resource path="res://Leaf.gd" type="Script" id=3]
+[ext_resource path="res://ClickArea.gd" type="Script" id=4]
+[ext_resource path="res://images/arrow.svg" type="Texture" id=5]
+[ext_resource path="res://images/stem.svg" type="Texture" id=6]
+[ext_resource path="res://images/bud.png" type="Texture" id=7]
+[ext_resource path="res://images/flower-base.png" type="Texture" id=8]
+[ext_resource path="res://Leaf.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ShadowTexture.tres" type="Material" id=10]
+[ext_resource path="res://StemSegment.tscn" type="PackedScene" id=11]
+[ext_resource path="res://StemSegment.gd" type="Script" id=12]
+[ext_resource path="res://Taproot.tscn" type="PackedScene" id=13]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 70, 64 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	color.a = min(color.a, (1.0 + cos(2.0 * TIME)) / 2.0);
+	color.rgb *= vec3(0.0, 0.5, 0.0);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[node name="Plant" type="Node2D"]
+position = Vector2( 512, 400 )
+script = ExtResource( 1 )
+
+[node name="Taproot" type="Node2D" parent="." instance=ExtResource( 13 )]
+script = ExtResource( 2 )
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="StemSegment" type="Sprite" parent="Body" instance=ExtResource( 11 )]
+position = Vector2( 0, -64 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 6 )
+script = ExtResource( 12 )
+
+[node name="GrowthPreview" type="Node2D" parent="."]
+position = Vector2( 0, -192 )
+
+[node name="StemSegment" type="Sprite" parent="GrowthPreview"]
+visible = false
+material = ExtResource( 10 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 6 )
+
+[node name="Leaf" type="Node2D" parent="GrowthPreview/StemSegment" instance=ExtResource( 9 )]
+material = ExtResource( 10 )
+position = Vector2( -28, -120 )
+script = ExtResource( 3 )
+active = false
+
+[node name="Leaf2" type="Node2D" parent="GrowthPreview/StemSegment" instance=ExtResource( 9 )]
+material = ExtResource( 10 )
+position = Vector2( 16, 88 )
+scale = Vector2( -1, 1 )
+script = ExtResource( 3 )
+active = false
+
+[node name="FlowerBud" type="Node2D" parent="GrowthPreview"]
+visible = false
+
+[node name="Base" type="Sprite" parent="GrowthPreview/FlowerBud"]
+material = ExtResource( 10 )
+position = Vector2( 1.25, 32 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 8 )
+
+[node name="Bud" type="Sprite" parent="GrowthPreview/FlowerBud"]
+material = ExtResource( 10 )
+position = Vector2( 1.25, 31 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 7 )
+
+[node name="ClickArea" type="Area2D" parent="GrowthPreview"]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrowthPreview/ClickArea"]
+shape = SubResource( 6 )
+
+[node name="Arrow" type="Sprite" parent="GrowthPreview"]
+visible = false
+material = SubResource( 8 )
+position = Vector2( 0, 50 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 5 )
+
+[node name="Roots" type="Node2D" parent="."]
+
+[node name="RootsClickArea" type="Area2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="RootsClickArea"]
+z_index = -1
+polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 512, 800, -512, 800 )
