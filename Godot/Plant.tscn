@@ -98,6 +98,9 @@ polygon = PoolVector2Array( -512, 0, -20, 0, -20, 130, 20, 130, 20, 0, 512, 0, 5
 
 [node name="GrowRootsSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+volume_db = -10.0
+bus = "SFX"
 
 [node name="GrowPlantSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "SFX"

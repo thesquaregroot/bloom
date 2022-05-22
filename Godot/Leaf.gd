@@ -5,6 +5,7 @@ onready var sunlightParticles = $SunlightParticles
 onready var sunlightTargetA = $SunlightTargetA
 onready var sunlightTargetB = $SunlightTargetB
 onready var normalVector = $SunlightTargetA/NormalVector
+onready var windSound = $WindSound
 
 const MAX_SUNLIGHT_PARTICLES = 8
 
@@ -36,6 +37,8 @@ func _rotated(angle):
 	_show_normal_vector(true)
 	var clampedAngle = clamp(angle, -PI/4, PI/4)
 	if clampedAngle != rotation:
+		if not windSound.playing:
+			windSound.play()
 		rotation = clampedAngle
 		_update_sunlight()
 

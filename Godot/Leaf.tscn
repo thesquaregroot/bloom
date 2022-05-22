@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://images/leaf.svg" type="Texture" id=1]
 [ext_resource path="res://Leaf.gd" type="Script" id=2]
 [ext_resource path="res://ClickArea.gd" type="Script" id=3]
 [ext_resource path="res://images/circle.png" type="Texture" id=4]
+[ext_resource path="res://audio/leaf-wind.wav" type="AudioStream" id=5]
 
 [sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.621118, 1 )
@@ -67,3 +68,7 @@ script = ExtResource( 3 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ClickArea"]
 position = Vector2( -1, 0.5 )
 polygon = PoolVector2Array( 504, 302, 500.75, 291.25, 496.5, 285, 488.5, 279.5, 477, 277, 467.25, 278.75, 455.75, 285.75, 444, 302.25, 452.75, 302.25, 463.75, 307, 472.75, 310.5, 481.25, 313, 487.75, 313.25, 495.25, 309.75, 500.75, 306 )
+
+[node name="WindSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "SFX"

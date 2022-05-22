@@ -820,7 +820,7 @@ margin_right = -10.0
 margin_bottom = -10.0
 text = "Grow the roots of the plant by clicking on in the underground area (use the mouse-wheel to see further below the ground).
 
-Growing roots requries nutrients, but allows the plant to absorb more water and nutreints over time."
+Growing roots requries nutrients, but allows the plant to absorb more water and nutreints over time.  The taproot also stops absorbing nutrients for a short time.  Click the taproot to resume absorption sooner."
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/HowToPlayPanel/VBoxContainer/TabContainer/Interaction"]
 anchor_top = 0.6

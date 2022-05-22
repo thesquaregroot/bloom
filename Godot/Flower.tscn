@@ -481,6 +481,8 @@ anims/RESET = SubResource( 23 )
 
 [node name="BloomSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "SFX"
 
 [node name="DeathSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "SFX"
