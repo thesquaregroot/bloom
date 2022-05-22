@@ -21,7 +21,7 @@ const RESOURCE_BORDER = 20
 const WATER_COUNT = 15
 const NUTRIENT_COUNT = 15
 
-var scrollEnabled = true
+var scrollEnabled = false
 var groundAreaWidth
 var groundAreaHeight
 
@@ -57,6 +57,7 @@ func _start_game():
 	undergroundResources.show()
 	resourceMeters.show()
 	mainMenu.hide()
+	scrollEnabled = true
 	isInGame = true
 
 func _quit_game():
@@ -67,6 +68,7 @@ func return_to_main_menu():
 	resourceMeters.hide()
 	plant.queue_free()
 	mainMenu.show()
+	scrollEnabled = false
 	isInGame = false
 
 func _next_animation(justFinished):
@@ -106,7 +108,8 @@ func _scroll(amount):
 	position.y = clamp(position.y + amount, SCROLL_MIN, SCROLL_MAX)
 
 func scroll_to(targetPositionY, duration, callbackNode, callbackMethod, callbackDelay = 0, shouldDisableScroll = true):
-	scrollEnabled = not shouldDisableScroll
+	if shouldDisableScroll:
+		scrollEnabled = false
 	var screenOffset = 400
 	var finalPositionY = clamp(position.y - targetPositionY + screenOffset, SCROLL_MIN, SCROLL_MAX)
 	tween.interpolate_property(self, "position:y", position.y, finalPositionY, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)

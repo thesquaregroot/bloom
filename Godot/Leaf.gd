@@ -24,6 +24,9 @@ func _ready():
 	clickArea.connect("deselected", self, "_show_normal_vector", [false])
 	_update_sunlight()
 
+func set_color(color):
+	$LeafSprite.self_modulate = color
+
 func _show_normal_vector(shouldShowNormalVector):
 	normalVector.visible = shouldShowNormalVector
 

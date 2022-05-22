@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var animationPlayer = $AnimationPlayer
 onready var clickArea = $ClickArea
 onready var taprootSprite = $TaprootSprite
 onready var nutrientParticles = $AbsorbtionParticles
@@ -38,5 +39,6 @@ func _process(_delta):
 
 func die():
 	_set_absorbing(false)
+	animationPlayer.play("Die")
 	nutrientParticles.visible = false
 	dead = true

@@ -6,6 +6,12 @@ onready var tween = $Tween
 onready var leaf1 = $Leaf1
 onready var leaf2 = $Leaf2
 
+func set_flower_color(color):
+	var mixColor = Color.white.linear_interpolate(color, 0.5)
+	self_modulate = mixColor
+	$Leaf1.set_color(mixColor)
+	$Leaf2.set_color(mixColor)
+
 func die():
 	animationPlayer.play("Die")
 

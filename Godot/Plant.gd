@@ -5,7 +5,6 @@ var StemSegmentScene = preload("StemSegment.tscn")
 var RootScene = preload("Root.tscn")
 var Leaf = preload("Leaf.gd")
 
-
 onready var game = $".."
 onready var undergroundResources = $"../UndergroundResources"
 onready var body = $Body
@@ -17,6 +16,8 @@ onready var stemSegmentPreview = $GrowthPreview/StemSegment
 onready var growthPreviewClickArea = $GrowthPreview/ClickArea
 onready var rootsClickArea = $RootsClickArea
 onready var roots = $Roots
+onready var growRootsSounds = $GrowRootsSound
+onready var growPlantSounds = $GrowPlantSound
 
 onready var resourceMeters = $"../CanvasLayer/ResourceMeters"
 
@@ -49,7 +50,7 @@ const FLOWER_BUD_NUTRIENTS = 100
 const FLOWER_BUD_WATER = 100
 const FLOWER_BUD_SUGAR = 250
 
-const FLOWER_BUD_WATER_CONSUMPTION = 1
+const FLOWER_BUD_WATER_CONSUMPTION = 10
 
 const STEM_SEGMENT_HEIGHT = -128
 
@@ -64,6 +65,7 @@ const ROOT_NUTRIENT_COST = 1
 func _ready():
 	# random flower color every game
 	flowerColor = Color(randf(), randf(), randf(), 1.0)
+	$Body/StemSegment.set_flower_color(flowerColor)
 
 	growthArrow.visible = false
 	flowerBudPreview.visible = false
@@ -75,12 +77,15 @@ func _ready():
 func _grow_plant():
 	if _can_grow_bud():
 		_add_flower_bud()
+		growPlantSounds.play()
 	if _can_grow_stem_segment():
 		_add_stem_segment()
+		growPlantSounds.play()
 
 func _add_stem_segment():
 	growthPreview.position.y += STEM_SEGMENT_HEIGHT
 	var newStemSegment = StemSegmentScene.instance()
+	newStemSegment.set_flower_color(flowerColor)
 	newStemSegment.position.y = (size + 0.5) * STEM_SEGMENT_HEIGHT # add .5 since the origin is in the center of the texture
 	body.add_child(newStemSegment)
 	_nutrients -= STEM_SEGMENT_NUTRIENTS
@@ -120,6 +125,9 @@ func _show_growth_preview(shouldShow):
 	stemSegmentPreview.visible = shouldShow
 
 func _add_root_segment():
+	if _nutrients < 1:
+		return
+
 	taproot.absorbing = false
 	var clickPosition = get_local_mouse_position()
 	var closestPoint = roots.position
@@ -149,6 +157,8 @@ func _add_root_segment():
 		closestObject.add_point(endPosition)
 	else:
 		_add_new_root(roots, closestPoint, endPosition)
+	growRootsSounds.play()
+
 	# activate any newly intersected resources
 	var rootSegments = _get_all_root_segments(roots)
 	for resource in undergroundResources.get_children():
@@ -181,12 +191,12 @@ func _process(delta):
 		if _water < 0:
 			if not hasBloomed:
 				_water = 100 # boost of water upon blooming
-				flowerReference.bloom()
+				game.scroll_to(flowerReference.global_position.y, 1, flowerReference, "bloom", 0, false)
 				hasBloomed = true
 			else:
 				# game over
 				game.scroll_to(flowerReference.global_position.y, 1, self, "_die")
-				game.set_music_volume(5)
+				game.set_music_volume(-5)
 	else:
 		var canGrowBud = _can_grow_bud()
 		var canGrowPlant = _can_grow_stem_segment()
@@ -210,14 +220,14 @@ func _exit():
 
 func _can_grow_bud():
 	# shortcut to test plant lifecycle
-	#return size == MAX_SIZE
+	return size == MAX_SIZE
 	return _nutrients > FLOWER_BUD_NUTRIENTS and \
 		_water > FLOWER_BUD_WATER and \
 		_sugar > FLOWER_BUD_SUGAR
 
 func _can_grow_stem_segment():
 	# shortcut to test plant lifecycle
-	#return size < MAX_SIZE
+	return size < MAX_SIZE
 	return size < MAX_SIZE and \
 		_nutrients > STEM_SEGMENT_NUTRIENTS and \
 		_water > STEM_SEGMENT_WATER and \

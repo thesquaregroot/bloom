@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bloom.wav-69972b1e25cca31bd40522152d4524d1.sample"
+
+[deps]
+
+source_file="res://audio/bloom.wav"
+dest_files=[ "res://.import/bloom.wav-69972b1e25cca31bd40522152d4524d1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
