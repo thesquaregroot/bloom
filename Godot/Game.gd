@@ -39,17 +39,18 @@ func _ready():
 	resourceMeters.hide()
 	pauseMenu.hide()
 
+	var groundRect = groundArea.rect_size
+	if groundArea.rect_rotation == 90:
+		groundRect = Vector2(groundRect.y, groundRect.x)
+	groundAreaWidth = groundRect.x
+	groundAreaHeight = groundRect.y
+
 func _start_game():
 	# create plant
 	plant = PlantScene.instance()
 	add_child(plant)
 
 	# disperse resources
-	var groundRect = groundArea.rect_size
-	if groundArea.rect_rotation == 90:
-		groundRect = Vector2(groundRect.y, groundRect.x)
-	groundAreaWidth = groundRect.x
-	groundAreaHeight = groundRect.y
 	_populate_underground_resources()
 
 	# cleanup
