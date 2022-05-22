@@ -23,6 +23,7 @@ onready var resourceMeters = $"../CanvasLayer/ResourceMeters"
 
 var size = 1
 var haveFlowerBud = false
+var budOrBloomTime = 0
 var flowerReference
 var hasBloomed = false
 var hasDied = false
@@ -50,7 +51,8 @@ const FLOWER_BUD_NUTRIENTS = 100
 const FLOWER_BUD_WATER = 100
 const FLOWER_BUD_SUGAR = 250
 
-const FLOWER_BUD_WATER_CONSUMPTION = 10
+const FLOWER_WATER_CONSUMPTION = 10
+const FLOWER_SUGAR_CONSUMPTION = 2
 
 const STEM_SEGMENT_HEIGHT = -128
 
@@ -78,6 +80,7 @@ func _grow_plant():
 	if _can_grow_bud():
 		_add_flower_bud()
 		growPlantSounds.play()
+		budOrBloomTime = OS.get_ticks_msec()
 	if _can_grow_stem_segment():
 		_add_stem_segment()
 		growPlantSounds.play()
@@ -186,13 +189,17 @@ func _process(delta):
 	if hasDied:
 		return
 	if haveFlowerBud:
-		# flower bud consumes water rapidly
-		_water -= FLOWER_BUD_WATER_CONSUMPTION * delta
-		if _water < 0:
+		# flower consumes water and sugar rapidly
+		var budOrBloomOffset = OS.get_ticks_msec() - budOrBloomTime
+		_water -= (FLOWER_WATER_CONSUMPTION + budOrBloomOffset / 60000) * delta
+		_sugar -= (FLOWER_SUGAR_CONSUMPTION + budOrBloomOffset / 60000) * delta
+		if _water < 0 or _sugar < 0:
 			if not hasBloomed:
-				_water = 100 # boost of water upon blooming
+				_water = clamp(_water, 100, _maxWater) # boost of water upon blooming
+				_sugar = clamp(_sugar, 50, _maxSugar)
 				game.scroll_to(flowerReference.global_position.y, 1, flowerReference, "bloom", 0, false)
 				hasBloomed = true
+				budOrBloomTime = OS.get_ticks_msec()
 			else:
 				# game over
 				game.scroll_to(flowerReference.global_position.y, 1, self, "_die")
@@ -220,14 +227,14 @@ func _exit():
 
 func _can_grow_bud():
 	# shortcut to test plant lifecycle
-	return size == MAX_SIZE
+	#return size == MAX_SIZE
 	return _nutrients > FLOWER_BUD_NUTRIENTS and \
 		_water > FLOWER_BUD_WATER and \
 		_sugar > FLOWER_BUD_SUGAR
 
 func _can_grow_stem_segment():
 	# shortcut to test plant lifecycle
-	return size < MAX_SIZE
+	#return size < MAX_SIZE
 	return size < MAX_SIZE and \
 		_nutrients > STEM_SEGMENT_NUTRIENTS and \
 		_water > STEM_SEGMENT_WATER and \
